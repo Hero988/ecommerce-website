@@ -1,0 +1,8 @@
+// main container from <div className="categories-container"> surrounding all of our cotegories
+// we did not nest the .category-container as this is going to be its own component
+.directory-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
