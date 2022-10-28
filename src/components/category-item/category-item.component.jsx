@@ -12,7 +12,7 @@ const CategoryItem = ({ category }) => {
                 // add the imageURL as the background image (allows us to use a string value insid another string) (adds a custom style to the URL element)
                 backgroundImage: `url(${imageUrl})`
             }} />
-
+            
             {/* this container hold the actual content in the container i.e. The Hats Text */}
             <div className="category-body-container">
 

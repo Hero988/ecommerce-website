@@ -1,56 +1,43 @@
-import Directory from "./components/directory/directory.component";
+// import the routes component 
+import { Routes, Route} from "react-router-dom";
+
+// import Navigation component
+import Navigation from "./components/routes/navigation/navigation.component";
+
+// import the home component
+import Home from "./components/routes/home/home.component";
+
+// import signin componets
+import SignIn from "./components/routes/sign-in/sign-in.component";
+
+// Shop component 
+const Shop = () => {
+  return (
+    <div>
+      <div>
+        <h1>I am the Shop page</h1>
+      </div>
+    </div>
+  )
+}
 
 const App = () => {
-  // an array that contains objects that reflect what we have as the categories of our website
-  const categories = [
-    // to determain what should be in here you have to think what is going to change i.e. title of the category and put that in here and the shop now is not going going to
-    // change there we do not put it in here
-    {
-      // the id of the categories
-      id: 1,
-      // the title of the category i.e. Hats, Jacets, Mens Ware
-      title: "hats",
-      // the image we are going to use as the background image
-      imageUrl: "https://i.ibb.co/cvpntL1/hats.png"
-    },
-    {
-      // the id of the categories
-      id: 2,
-      // the titel of the category i.e. Hats, Jacets, Mens Ware
-      title: 'Jackets',
-      // the image we are going to use as the background image
-      imageUrl: "https://i.ibb.co/px2tCc3/jackets.png"
-    },
-    {
-      // the id of the categories
-      id: 3,
-      // the titel of the category i.e. Hats, Jacets, Mens Ware
-      title: 'Sneakers',
-      // the image we are going to use as the background image
-      imageUrl: "https://i.ibb.co/0jqHpnp/sneakers.png"
-    },
-    {
-      // the id of the categories
-      id: 4,
-      // the titel of the category i.e. Hats, Jacets, Mens Ware
-      title: 'Womens',
-      // the image we are going to use as the background image
-      imageUrl: "https://i.ibb.co/GCCdy8t/womens.png"
-    },
-    {
-      // the id of the categories
-      id: 5,
-      // the titel of the category i.e. Hats, Jacets, Mens Ware
-      title: 'Mens',
-      // the image we are going to use as the background image
-      imageUrl: "https://i.ibb.co/R70vBrQ/men.png"
-    },
-  ]
-
   return (
-    <Directory categories={categories} />
+    // anything that is routable i.e. the home page is wrapped in the routes component (routes allows this application to register the route components)
+    <Routes>
+      {/* this should nest everything */}
+      <Route path="/" element={<Navigation />}>
+        {/* route will then render a specific component when it matches the specific route that we are looking for. 
+        {/* call the home compoenent to get the home page, index means when you match this / i.e. with nothing in it then this should be the home component*/}
+        <Route index element={<Home />} />
+        {/* So when you match path / (home page, base URL level) then I want you to render a specific element i.e. the honme component, 
+        call the Shop compoenent to get the home page */}
+        <Route path="shop" element={<Shop />} />
+        {/* add the signin route */}
+        <Route path="sign-in" element={<SignIn />} />
+      </Route>
+    </Routes>
   )
 }
 
 export default App;
-// do it all in 1 file and then create a components folder
