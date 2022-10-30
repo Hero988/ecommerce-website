@@ -2,13 +2,17 @@
 import { initializeApp } from 'firebase/app';
 // importing the authendication libaries
 import { 
+    // get the authdication method to be able to authdicate users
     getAuth, 
     // or sign in by allowing our application to redirect 
     signInWithRedirect,
     // either sign in using a popup 
     signInWithPopup, 
     // be able to sign in with google
-    GoogleAuthProvider 
+    GoogleAuthProvider ,
+    // be able to create a user using an email and password
+    createUserWithEmailAndPassword
+    // we can add as many providers i.e. facebook sign in  
 } from 'firebase/auth'
 // importing some methods from firestore database
 import {
@@ -36,28 +40,28 @@ const firebaseConfig = {
   // Initialize Firebase. This config will let us run CRUD actions
   const firebaseApp = initializeApp(firebaseConfig);
   //  To use the google authendication we first need to initialies a provider (this is a class) We can have multiple different providers
-  const provider = new GoogleAuthProvider();
+  const googleProvider = new GoogleAuthProvider();
   //   We can tell the google auth provider how to behave
-  provider.setCustomParameters({
-    // eveythime when someone interact with our provider we want to always force them to select an account
+  googleProvider.setCustomParameters({
+    // eveytime when someone interact with our provider we want to always force them to select an account
     prompt: "select_account"
   });
+
   //   call the getauth function and export this as the constant auth. Authendication is always the same
   export const auth = getAuth();
   //   call the signInWithPopup function and pass in the paramaters auth and provider and export this as the constant signInWithGooglePopup
-  export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
-
+  export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
+   //   call the signInWithRedirect function and pass in the paramaters auth and provider and export this as the constant signInWithGoogleRedirect
+  export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
   // We need to create the database (directly points to the database)
   export const db = getFirestore()
   
   // the method creates the user from the authendication i.e. google authendication we are passing the userAuth key
-  export const createUserDocumentFromAuth = async (userAuth) => {
+export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {}) => {
     // we need to see if there is an existing document reference, doc(theDatabase, collections, identifier (tells it what it wants i.e. uniqiue ID))
     const userDocRef = doc(db, 'users', userAuth.uid);
-    
     // gets the document for the userDocRef variable 
     const userSnapshot = await getDoc(userDocRef)
-
     //  Check if user data exists, if user data does not exist 
     if(!userSnapshot.exists()) {
         // We are getting the displayName and email from the userAuth object
@@ -73,14 +77,23 @@ const firebaseConfig = {
                 // set the email 
                 email,
                 // set the created at 
-                createdAt
+                createdAt,
+                // spread the addional information, this is going to overwrite the null value
+                ...additionalInformation
             })
         } catch (error) {
-            console.log('error creating the error', error.message)
+            console.log('error creating the user', error.message)
         }
     }
     // if user data exists, then return the userDocRef
-
     return userDocRef;
-    
+}
+
+// create an authendicated user using an email and password
+export const createAuthUserWithEmailAndPassword = async (email,password) => {
+    // if we do not get an email or password don't run the function
+    if(!email || !password) return;
+    // this will create an authendicated user
+    return await createUserWithEmailAndPassword(auth, email, password);
+
 }
