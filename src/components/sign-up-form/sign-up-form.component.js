@@ -50,6 +50,9 @@ const SignUpForm = () => {
             if(error.code === 'auth/email-already-in-use') {
                 alert('cannot Create user, email already in use')
             }
+            if(error.code === 'auth/weak-password') {
+                alert('Password too weak, please make sure your password is least 6 characters')
+            }
             console.log('user creation encountered an error', error);
         }
 
@@ -90,3 +93,9 @@ const SignUpForm = () => {
 }
 
 export default SignUpForm;
+
+
+
+    // since we now have hooked into the context. As long as useContext change this component will re run
+    // if you have multiple components that listen to the context will then cause react to re run the function and it may not re render anything in the DOM. 
+    // const val = useContext(useContext);

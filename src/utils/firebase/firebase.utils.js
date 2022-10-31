@@ -11,7 +11,13 @@ import {
     // be able to sign in with google
     GoogleAuthProvider ,
     // be able to create a user using an email and password
-    createUserWithEmailAndPassword
+    createUserWithEmailAndPassword, 
+    // allows you to sign in with email and password
+    signInWithEmailAndPassword,
+    // this allows the user to sign out of there account
+    signOut,
+    // an observable listener is a way for us to hook into some kind of stream of events i.e. sign in events and we can trigger something based on these changes
+    onAuthStateChanged
     // we can add as many providers i.e. facebook sign in  
 } from 'firebase/auth'
 // importing some methods from firestore database
@@ -96,4 +102,27 @@ export const createAuthUserWithEmailAndPassword = async (email,password) => {
     // this will create an authendicated user
     return await createUserWithEmailAndPassword(auth, email, password);
 
+}
+
+// sign in authendicated user using an email and password
+export const signInAuthUserWithEmailAndPassword = async (email,password) => {
+    // if we do not get an email or password don't run the function
+    if(!email || !password) return;
+    // this will sign the user in with the email and password
+    return await signInWithEmailAndPassword(auth, email, password);
+
+}
+
+// sign out user
+export const signOutUser = async () => {
+    // this will sign the user out, and we pass the auth so firebase can try and find the user to sign out
+    await signOut(auth);
+}
+
+// creates a observable Listener, whenever you instantiate this function you have to give me a callback
+export const onAuthStateChangedListener = (callback) => {
+    // this will return back the onAuthStateChanged and this takes the auth and the second one is a callback everytime this auth state changes 
+    // this is a permantely open listener meaning when you set it, it is always waiting to see if auth changes and when it does it calls a callback 
+    // create a listener using the callback so whenver auth changes run the callback 
+    onAuthStateChanged(auth, callback)
 }

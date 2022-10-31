@@ -7,8 +7,8 @@ import Navigation from "./components/routes/navigation/navigation.component";
 // import the home component
 import Home from "./components/routes/home/home.component";
 
-// import signin componets
-import SignIn from "./components/routes/sign-in/sign-in.component";
+// import Authentication componets
+import Authentication from "./components/routes/authentication/authentication.component";
 
 // Shop component 
 const Shop = () => {
@@ -34,7 +34,7 @@ const App = () => {
         call the Shop compoenent to get the home page */}
         <Route path="shop" element={<Shop />} />
         {/* add the signin route */}
-        <Route path="sign-in" element={<SignIn />} />
+        <Route path="auth" element={<Authentication />} />
       </Route>
     </Routes>
   )
