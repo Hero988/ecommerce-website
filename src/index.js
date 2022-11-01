@@ -6,6 +6,9 @@ import './index.scss';
 import App from './App';
 // import userprovider function from context (now we can access the context in the UserProvider)
 import { UserProvider } from './contexts/user.context';
+// import ProductsProvider function from context (now we can access the context in the ProductsProvider)
+import { ProductsProvider } from './contexts/products.context';
+import { CartProvider } from './contexts/cart.contex';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -14,7 +17,11 @@ root.render(
     {/* make sure the browser router is the parent of the entier application, now we can access all the features in browser router  */}
     <BrowserRouter>
       <UserProvider>
-        <App />
+        <ProductsProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </ProductsProvider>
       </UserProvider>
     </BrowserRouter>
   </React.StrictMode>

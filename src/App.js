@@ -10,16 +10,8 @@ import Home from "./components/routes/home/home.component";
 // import Authentication componets
 import Authentication from "./components/routes/authentication/authentication.component";
 
-// Shop component 
-const Shop = () => {
-  return (
-    <div>
-      <div>
-        <h1>I am the Shop page</h1>
-      </div>
-    </div>
-  )
-}
+// importing Shop component
+import Shop from "./components/routes/shop/shop.component";
 
 const App = () => {
   return (

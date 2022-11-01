@@ -10,7 +10,16 @@ import { ReactComponent as CrwnLogo } from '../../../assets/crown.svg'
 // import the signOutUser method
 import { signOutUser } from "../../../utils/firebase/firebase.utils"
 
+// import cartIcon component
+import CartIcon from "../../cart-icon/cart-icon.component"
+
+// import CartDropdown component
+import CartDropdown from "../../cart-dropdwon/cart-dropdwon.component"
+
+// importing UserContext component
 import { UserContext } from "../../../contexts/user.context"
+// importing CartContext component
+import { CartContext } from "../../../contexts/cart.contex"
 
 // import naviagtion styles
 import './navigation.styles.scss'
@@ -21,6 +30,7 @@ const Navigation = () => {
   // re render me. Because we are leveraging currentUser value we are saying we want you to run my functional component again and re render me as the value in the user context
   // has updated.
   const { currentUser} = useContext(UserContext)
+  const { iscartOpen} = useContext(CartContext)
 
     return (
         // outside dive contains the entier page
@@ -48,7 +58,11 @@ const Navigation = () => {
                 SIGN IN 
                 </Link>
               )}
+              <CartIcon />
           </div>
+          {/* if iscartOpen and CartDropdown is true then the condition is true (if the total is true then I am going to return the last thing you game me i.e. if
+          iscartOpen and CartDropdown is true then I am going to return the CartDropdown component) */}
+          { iscartOpen && <CartDropdown />}
         </div>
         {/* Outlet means no matter what render this compoenent. I.e. in home/shop or /home always render this Navigation component, the thing that should always be present */}
         <Outlet />
