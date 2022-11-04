@@ -13,6 +13,9 @@ import Authentication from "./components/routes/authentication/authentication.co
 // importing Shop component
 import Shop from "./components/routes/shop/shop.component";
 
+// import the checkout component
+import Checkout from "./components/routes/checkout/checkout.component";
+
 const App = () => {
   return (
     // anything that is routable i.e. the home page is wrapped in the routes component (routes allows this application to register the route components)
@@ -27,6 +30,8 @@ const App = () => {
         <Route path="shop" element={<Shop />} />
         {/* add the signin route */}
         <Route path="auth" element={<Authentication />} />
+        {/* add the checkout route */}
+        <Route path="checkout" element={<Checkout />} />
       </Route>
     </Routes>
   )

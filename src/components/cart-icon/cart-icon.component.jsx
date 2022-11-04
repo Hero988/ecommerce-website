@@ -14,9 +14,9 @@ import './cart-icon.styles.scss'
 // create the CartIcon function
 
 const CartIcon = () => {
-    // getting the setIsCartOpen method from the CartContext hook and the isCartOpen boolean
-    const { iscartOpen, setIsCartOpen } = useContext(CartContext);
-    
+    // getting the setIsCartOpen method from the CartContext hook and the isCartOpen boolean. We then get the cartCount number
+    const { iscartOpen, setIsCartOpen, cartCount} = useContext(CartContext);
+
     // this calls the setIsCartOpen method but it sets the opposite value of iscartOpen and this is called a toggle
     const toogleIsCartOpen = () => setIsCartOpen(!iscartOpen)
 
@@ -26,7 +26,7 @@ const CartIcon = () => {
             {/* shopping icon */}
             <ShoppingIcon className='shopping-icon'/>
             {/* this holds the number of how many items are in the cart */}
-            <span className='item-count'>0</span>
+            <span className='item-count'>{cartCount}</span>
         </div>
     )
 }
